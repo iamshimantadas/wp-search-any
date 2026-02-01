@@ -31,9 +31,9 @@ if (!empty($search_term) && get_query_var('paged') <= 1) {
 }
 ?>
 
-<div class="sdw-search-wrapper container">
+<div class="mc-wp-search-any-wrapper container">
 
-    <h1>
+    <h1 style="color: black;">
         Search results for:
         <strong><?php echo esc_html($search_term); ?></strong>
     </h1>
@@ -57,15 +57,21 @@ if (!empty($search_term) && get_query_var('paged') <= 1) {
 
     <?php if (have_posts()) : ?>
 
-        <ul class="sdw-search-results">
-            <?php while (have_posts()) : the_post(); ?>
-                <li class="sdw-search-item">
+        <ul class="mc-wp-search-any-results">
+            <?php while (have_posts()) : the_post();
+            ?>
+                <li class="mc-wp-search-any-item">
+                    <?php if(has_post_thumbnail(get_the_ID())){ ?>
+                        <img src="<?php echo get_the_post_thumbnail_url(get_the_ID(), 'full' ); ?>" alt="" style="max-height: 100px; max-width: 100px;">
+                    <?php }else{ ?>
+                        <img src="<?php echo WP_SEARCH_ANY_URL."/assets/img/noimg.jpg"; ?>" alt="" style="max-height: 100px; max-width: 100px;">
+                    <?php } ?>
                     <h2>
                         <a href="<?php the_permalink(); ?>">
                             <?php the_title(); ?>
                         </a>
                     </h2>
-                    <div class="sdw-search-excerpt">
+                    <div class="mc-wp-search-any-excerpt">
                         <?php the_excerpt(); ?>
                     </div>
                 </li>

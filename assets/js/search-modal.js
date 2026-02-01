@@ -1,12 +1,12 @@
 jQuery(function ($) {
     const $body  = $('body');
-    const $modal = $('.sdw-search-modal');
+    const $modal = $('.mc-wp-search-any-modal');
 
     function openModal() {
         $modal.addClass('is-open');
         $body.addClass('sdw-modal-open');
         setTimeout(() => {
-            $modal.find('.sdw-search-input').focus();
+            $modal.find('.mc-wp-search-any-input').focus();
         }, 200);
     }
 
@@ -16,13 +16,13 @@ jQuery(function ($) {
     }
 
     // Open modal
-    $(document).on('click', '.sdw-search-open', function (e) {
+    $(document).on('click', '.mc-wp-search-any-open', function (e) {
         e.preventDefault();
         openModal();
     });
 
     // Close (overlay / button)
-    $(document).on('click', '.sdw-search-close, .sdw-search-modal-overlay', function () {
+    $(document).on('click', '.mc-wp-search-any-close, .mc-wp-search-any-modal-overlay', function () {
         closeModal();
     });
 

@@ -75,7 +75,7 @@ class WP_Search_Any_Shortcode {
 
                 <div class="mc-search-field">
                     <input type="text" name="keys" class="mc-search-input"
-                           placeholder="<?php esc_attr_e('Enter your search query', 'wp-search-any'); ?>" required>
+                           placeholder="<?php esc_attr_e('Search anything', 'wp-search-any'); ?>" required>
                     <div class="mc-ajax-results"></div>
                 </div>
 
@@ -277,7 +277,7 @@ class WP_Search_Any_Shortcode {
             'mc-search-styles',
             WP_SEARCH_ANY_URL . 'assets/css/search.css',
             [],
-            WP_SEARCH_ANY_VERSION
+            WP_SEARCH_ANY_VERSION . time()
         );
 
         $options = get_option('mc_wp_search_any_settings', []);
