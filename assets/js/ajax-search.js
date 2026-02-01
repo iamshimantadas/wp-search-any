@@ -2,7 +2,7 @@ jQuery(function ($) {
 
     let timer = null;
 
-    $('.mc-search-form[data-ajax-search="1"] input[name="keys"]').on('keyup', function () {
+    $('.mc-search-form[data-ajax-search="1"] input[name="keyword"]').on('keyup', function () {
 
         const term = $(this).val();
         const resultsBox = $(this).siblings('.mc-ajax-results');

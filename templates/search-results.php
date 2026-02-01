@@ -3,7 +3,7 @@ get_header();
 
 global $wpdb, $wp_query;
 $current_page = get_query_var('page') ? absint(get_query_var('page')) : 1;
-$search_term = trim(get_query_var('keys'));
+$search_term = trim(get_query_var('keyword'));
 
 // Store search history ONLY on first page
 if (!empty($search_term) && get_query_var('paged') <= 1) {
@@ -44,10 +44,16 @@ if (!empty($search_term) && get_query_var('paged') <= 1) {
     
     <div class="row">
         <div class="col-4">
-            <form method="get" action="<?php echo esc_url(home_url('/search/content')); ?>">
+            <!-- <form method="get" action="<?php //echo esc_url(home_url('/search/content')); ?>">
                 <input type="text" name="keys" class="form-control" 
                        placeholder="Enter your search query" 
-                       value="<?php echo esc_attr($search_term); ?>" required>
+                       value="<?php //echo esc_attr($search_term); ?>" required>
+                <button type="submit" class="btn btn-primary">Search</button>
+            </form> -->
+            <form method="get" action="<?php echo esc_url(home_url('/search')); ?>">
+                <input type="text" name="keyword" class="form-control"
+                    placeholder="Search anything" 
+                    value="<?php echo esc_attr($search_term); ?>" required>
                 <button type="submit" class="btn btn-primary">Search</button>
             </form>
         </div>
@@ -80,8 +86,14 @@ if (!empty($search_term) && get_query_var('paged') <= 1) {
 
         <div class="sdw-pagination">
             <?php
+            // echo paginate_links([
+            //     'base'     => home_url('/search/content') . '?keys=' . urlencode($search_term) . '%_%',
+            //     'format'   => '&page=%#%',
+            //     'current'  => max(1, get_query_var('page')),
+            //     'total'    => $wp_query->max_num_pages,
+            // ]);
             echo paginate_links([
-                'base'     => home_url('/search/content') . '?keys=' . urlencode($search_term) . '%_%',
+                'base'     => home_url('/search') . '?keyword=' . urlencode($search_term) . '%_%',  // Change from '/search/content'
                 'format'   => '&page=%#%',
                 'current'  => max(1, get_query_var('page')),
                 'total'    => $wp_query->max_num_pages,

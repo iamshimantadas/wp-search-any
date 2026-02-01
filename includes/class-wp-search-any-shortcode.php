@@ -44,7 +44,7 @@ class WP_Search_Any_Shortcode {
      * @return string
      */
     public function mc_remove_trailing_slash_for_search($url, $type) {
-        if (strpos($url, '/search/content/') !== false) {
+        if (strpos($url, '/search/') !== false) {
             return untrailingslashit($url);
         }
         return $url;
@@ -69,12 +69,12 @@ class WP_Search_Any_Shortcode {
 
         if ($atts['variant'] !== 'modal') : ?>
             <form method="get"
-                  action="<?php echo esc_url(home_url('/search/content')); ?>"
+                  action="<?php echo esc_url(home_url('/search')); ?>"
                   class="mc-search-form"
                   <?php if ($ajax_enabled): ?>data-ajax-search="1"<?php endif; ?>>
 
                 <div class="mc-search-field">
-                    <input type="text" name="keys" class="mc-search-input"
+                    <input type="text" name="keyword" class="mc-search-input"
                            placeholder="<?php esc_attr_e('Search anything', 'wp-search-any'); ?>" required>
                     <div class="mc-ajax-results"></div>
                 </div>
@@ -98,12 +98,12 @@ class WP_Search_Any_Shortcode {
                     <h3 class="mc-search-title"><?php esc_html_e('Search in website', 'wp-search-any'); ?></h3>
 
                     <form method="get"
-                          action="<?php echo esc_url(home_url('/search/content')); ?>"
+                          action="<?php echo esc_url(home_url('/search')); ?>"
                           class="mc-search-form"
                           <?php if ($ajax_enabled): ?>data-ajax-search="1"<?php endif; ?>>
 
                         <div class="mc-search-field">
-                            <input type="text" name="keys" class="mc-search-input"
+                            <input type="text" name="keyword" class="mc-search-input"
                                    placeholder="<?php esc_attr_e('Enter your search query', 'wp-search-any'); ?>"
                                    required autofocus>
                             <div class="mc-ajax-results"></div>
@@ -127,7 +127,7 @@ class WP_Search_Any_Shortcode {
      * @since 1.0.0
      */
     public function mc_wp_search_any_rewrite() {
-        add_rewrite_rule('^search/content/?$', 'index.php?mc_search_page=1', 'top');
+        add_rewrite_rule('^search/?$', 'index.php?mc_search_page=1', 'top');
     }
 
     /**
@@ -138,7 +138,7 @@ class WP_Search_Any_Shortcode {
      */
     public function mc_wp_search_any_query_vars($vars) {
         $vars[] = 'mc_search_page';
-        $vars[] = 'keys';
+        $vars[] = 'keyword';
         return $vars;
     }
 
@@ -152,7 +152,7 @@ class WP_Search_Any_Shortcode {
             return;
         }
 
-        $search_term = sanitize_text_field(get_query_var('keys'));
+        $search_term = sanitize_text_field(get_query_var('keyword'));
         if (!$search_term) return;
 
         static $already_logged = false;
